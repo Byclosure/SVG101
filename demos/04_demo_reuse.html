@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html >
+<head>
+    <title>Reuse SVG</title>
+	
+    <style type="text/css">
+		
+		body{
+			background-color: grey;
+		}
+		
+		svg{
+			overflow:hidden;
+			border: solid black;
+			background-color: white;
+		}
+		
+		h2{
+			text-transform:uppercase; 
+			font-family: verdana;
+			color:white;
+		}
+		
+		#code{
+			font-family: monospace;
+			background: #CCC;
+			padding: 10px;
+			font-size: 15px;
+		}
+		
+		#textblock{
+			float: left;
+			margin-right: 20px;
+		}
+		
+    </style>
+</head>
+<body>
+<div id="textblock">
+	<h2>Reutilizar elementos</h2>
+	<pre id="code" >&lt;svg viewBox=&quot;0 0 1000 1000&quot;  width=&quot;500&quot; height=&quot;500&quot;&gt;
+	&lt;defs&gt;
+		&lt;circle id=&quot;foo&quot; fill=&quot;orange&quot; cx=&quot;100&quot; cy=&quot;100&quot; r=&quot;40&quot; /&gt;
+	&lt;/defs&gt;
+	&lt;use xlink:href=&quot;#foo&quot; /&gt;
+	&lt;use xlink:href=&quot;#foo&quot; transform=&quot;translate(100, 0)&quot; /&gt;
+	&lt;use xlink:href=&quot;#foo&quot; transform=&quot;translate(200, 0)&quot; /&gt;
+	&lt;use xlink:href=&quot;#foo&quot; transform=&quot;translate(300, 0)&quot; /&gt;
+	&lt;use xlink:href=&quot;#foo&quot; transform=&quot;translate(400, 0)&quot; /&gt;
+	&lt;use xlink:href=&quot;#foo&quot; transform=&quot;translate(500, 0)&quot; /&gt;
+	&lt;use xlink:href=&quot;#foo&quot; transform=&quot;translate(600, 0)&quot; /&gt;
+	&lt;use xlink:href=&quot;#foo&quot; transform=&quot;translate(200, 200)&quot; /&gt;
+	&lt;use xlink:href=&quot;#foo&quot; transform=&quot;translate(300, 300)&quot; /&gt;
+	&lt;use xlink:href=&quot;#foo&quot; transform=&quot;translate(400, 400)&quot; /&gt;
+	&lt;use xlink:href=&quot;#foo&quot; transform=&quot;translate(500, 500)&quot; /&gt;
+	&lt;use xlink:href=&quot;#foo&quot; transform=&quot;translate(600, 600)&quot; /&gt;
+&lt;/svg&gt;</pre>
+</div>
+<svg viewBox="0 0 1000 1000"  width="400" height="500">
+	<defs>
+		<circle fill="orange" id="foo" cx="100" cy="100" r="40" />
+	</defs>
+	<use xlink:href="#foo" />
+	<use xlink:href="#foo" transform="translate(100, 0)" />
+	<use xlink:href="#foo" transform="translate(200, 0)" />
+	<use xlink:href="#foo" transform="translate(300, 0)" />
+	<use xlink:href="#foo" transform="translate(400, 0)" />
+	<use xlink:href="#foo" transform="translate(500, 0)" />
+	<use xlink:href="#foo" transform="translate(600, 0)" />
+	<use xlink:href="#foo" transform="translate(200, 200)" />
+	<use xlink:href="#foo" transform="translate(300, 300)" />
+	<use xlink:href="#foo" transform="translate(400, 400)" />
+	<use xlink:href="#foo" transform="translate(500, 500)" />
+	<use xlink:href="#foo" transform="translate(600, 600)" />
+</svg>
+</body>
+</html>
