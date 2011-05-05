@@ -1,0 +1,197 @@
+<!DOCTYPE HTML>
+<html >
+<head>
+    <title>Vizualization SVG</title>
+	<script type="text/javascript">
+		
+		/* Define SVG namespaces */
+		var SVG = {};
+		SVG.ns = "http://www.w3.org/2000/svg";
+		SVG.xlinkns = "http://www.w3.org/1999/xlink";
+		
+		var maxRadius = 50;
+		var maxArea = 4.3;
+		var maxWage = 19.335;
+		
+		/* Dataset used in demo */
+		var dataset = [
+						{'country': 'portugal'	, 'area':0.6,	'minwage': 09.052	,'borderwith':['espanha']},
+						{'country': 'espanha'	, 'area':3.4,	'minwage': 11.042	,'borderwith':['portugal','frança']},
+						{'country': 'frança'	, 'area':4.3,	'minwage': 17.701	,'borderwith':['espanha', 'itália', 'bélgica', 'alemanha', 'suiça', 'luxemburgo']},
+						{'country': 'itália'	, 'area':2.0,	'minwage': 17.701	,'borderwith':['frança','suiça', 'austria','eslovénia']},
+						{'country': 'bélgica'	, 'area':0.2,	'minwage': 18.813	,'borderwith':['frança', 'holanda', 'alemanha','luxemburgo']},
+						{'country': 'holanda'	, 'area':0.3,	'minwage': 19.335	,'borderwith':['frança','bélgica', 'alemanha']},
+						];
+		
+		/**
+		* @desc create svg elements for dataset
+		*/
+		function updateCountryElementsBy(property, maxValue){
+			
+			/*
+			* Retrieve svg tag (in this example there's only one
+			* so that's ok to use the tag selector
+			*/
+			var svgRoot = document.querySelector('svg');
+			
+			//create country SVGCircleElements
+			for(var i in dataset){
+				
+				var element = document.getElementById(dataset[i].country);
+				var scale = dataset[i][property]/maxValue;
+
+				if(element != null){
+					element.transform.baseVal.getItem(0).setScale(scale,scale);
+				}
+ 			}
+		}
+		
+		/**
+		* @desc draw lines between country and his neighbours
+		*
+		* @param name the country name
+		*/
+		function drawlines(origin){
+			//Draw lines
+			var item = getCountryByName(origin.id);
+			
+			var svgRoot = document.querySelector('svg');
+				
+			for(var i in item.borderwith){
+				var dest = document.getElementById(item.borderwith[i]);
+				
+				if(!dest)	continue;
+				var path = document.createElementNS(SVG.ns, "path");
+				var color = "#"+Math.round(0xffffff * Math.random()).toString(16);
+				path.setAttribute("stroke", color);
+				
+				var originX = origin.getBoundingClientRect().left + origin.getBoundingClientRect().width/2 - 12;
+				var originY = 300;
+				
+				var destX = dest.getBoundingClientRect().left + dest.getBoundingClientRect().width/2 -12;
+				var destY = 300;
+				
+				var controlX = originX + (destX - originX)/2;
+				var controlY = (i%2 == 0) ? 300 - 3*dest.getBoundingClientRect().width : 300 + 3*dest.getBoundingClientRect().width ;
+				
+				var pathData = "M" + originX +","+300 +" Q"+controlX+","+controlY + " "+ destX +","+300;
+				
+				path.setAttribute("d", pathData);
+				
+				svgRoot.appendChild(path);
+			}
+		}
+		
+		/**
+		* @param name the country name
+		* @returns the data object for the given country
+		*/
+		function getCountryByName(name){
+			for(var i in dataset){
+				if(dataset[i].country == name)
+					return dataset[i];
+			}
+		}
+		
+		
+		//Mouse Down Handler
+		function downHandler(event){
+			drawlines(event.srcElement);
+		}
+		
+		//Mouse Up Handler
+		function upHandler(event){
+			clearAllSVGElements("path");
+		}
+		
+		//Remove all svg paths from DOM
+		function clearAllSVGElements(selector){
+			var svgRoot = document.querySelector('svg');
+			var paths = document.querySelectorAll(selector);
+			
+			for(var i = 0; i < paths.length ; i++){
+				svgRoot.removeChild(paths[i]);
+			}
+		}
+	
+	</script>
+	
+    <style type="text/css">
+		body{
+			background-color: grey;
+		}
+		
+		h2{
+			text-transform:uppercase; 
+			font-family: verdana;
+			color:white;
+		}
+		
+		svg{
+			overflow:hidden;
+			border: solid black;
+			background-color: white;
+		}
+	
+		.country{
+			fill: blue;
+			stroke: black;
+		}
+		
+		.country:hover{
+			fill: green;
+		}
+		
+		button{
+			font-size: 16px;
+		}
+		
+		text{
+			text-transform:uppercase; 
+			font-family: verdana;
+			font-size: 12px;
+		}
+		
+		path{
+			stroke-width: 3px;
+			fill:none;
+		}
+    </style>
+</head>
+<body>
+<div>
+	<h2>Visualização de fronteiras e relação de área entre países</h2>
+	<button onclick="updateCountryElementsBy('area', maxArea)">Área</button>
+	<button onclick="updateCountryElementsBy('minwage', maxWage)">Salário mínimo</button>
+</div>
+<svg viewBox="0 0 1000 500"  width="1000" height="500">
+	<defs>
+		<circle id="basecircle"  />
+	</defs>
+	<g transform="translate(60 300)">
+		<circle  id="portugal"	class="country" transform="scale(1 1)"  r="50" onmousedown="downHandler(event)" onmouseup="upHandler(event)" onmouseout="upHandler(event)" />
+		<text transform="translate(0,70),rotate(45, 0, 0)" >Portugal</text>
+	</g>
+	<g transform="translate(170 300)">
+		<circle  id="espanha"	class="country" transform="scale(1 1)"  r="50" onmousedown="downHandler(event)" onmouseup="upHandler(event)" onmouseout="upHandler(event)" />
+		<text transform="translate(0,70),rotate(45, 0, 0)" >Espanha</text>
+	</g>
+	<g transform="translate(280 300)" >
+		<circle  id="frança"	class="country" transform="scale(1 1)"  r="50" onmousedown="downHandler(event)" onmouseup="upHandler(event)" onmouseout="upHandler(event)" />
+		<text transform="translate(0,70),rotate(45, 0, 0)" >França</text>
+	</g>
+	<g transform="translate(390 300)">
+		<circle  id="itália"	class="country" transform="scale(1 1)"  r="50" onmousedown="downHandler(event)" onmouseup="upHandler(event)" onmouseout="upHandler(event)" />
+		<text transform="translate(0,70),rotate(45, 0, 0)" >Itália</text>
+	</g>
+	<g transform="translate(500 300)">
+		<circle  id="bélgica"	class="country" transform="scale(1 1)"  r="50" onmousedown="downHandler(event)" onmouseup="upHandler(event)" onmouseout="upHandler(event)" />
+		<text transform="translate(0,70),rotate(45, 0, 0)" >Bélgica</text>
+	</g>
+	<g transform="translate(610 300)">
+		<circle  id="holanda"	class="country" transform="scale(1 1)"  r="50" onmousedown="downHandler(event)" onmouseup="upHandler(event)" onmouseout="upHandler(event)" />
+		<text transform="translate(0,70), rotate(45, 0, 0)" >Holanda</text>
+	</g>
+</svg>
+</body>
+</html>

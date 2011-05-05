@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html >
+<head>
+    <title>Standalone SVG</title>
+	<script type="text/javascript">
+		
+		function initialize(){
+			SVGDoc = document.getElementById("#container").getSVGDocument();
+		}
+		
+		function handleClick(event){
+			console.log("clicked in " + event.srcElement);
+		}
+		
+	</script>
+	
+    <style type="text/css">
+		
+		body{
+			background-color: grey;
+		}
+		
+		container{
+			overflow:hidden;
+			border: solid black;
+			background-color: white;
+		}
+    </style>
+</head>
+<body>
+<div>
+	<h2></h2>
+</div>
+<object onload="initialize()" onclick="handleClick(event)" id="container" data="friends.svg" type="image/svg+xml" width="800" height="500" />
+</body>
+</html>
