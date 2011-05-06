@@ -5,6 +5,9 @@
 	<script type="text/javascript">
 		
 		function initialize(){
+			/*Access de SVG document (implements SVGDocument interface)
+			* but can be access with the Core DOM interface 
+			*/
 			SVGDoc = document.getElementById("container").getSVGDocument();
 		}
 		
@@ -28,10 +31,16 @@
     </style>
 </head>
 <body>
-<div>
-	<h2></h2>
-</div>
-<object onload="initialize()" onclick="handleClick(event)" id="container" data="friends.svg" type="image/svg+xml" width="800" height="500" />
+	<div>
+		<h2>Standalone SVG</h2>
+	</div>
+	<!-- external svg -->
+	<object id="container" 
+			onload="initialize()" 
+			onclick="handleClick(event)" 
+			data="friends.svg" 
+			type="image/svg+xml" 
+			width="800" height="500" />
 </body>
-<a href="../">[VOLTAR]</a>
+<a href="../index.html">[VOLTAR]</a>
 </html>

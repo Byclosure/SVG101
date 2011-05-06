@@ -24,7 +24,7 @@
 						];
 		
 		/**
-		* @desc create svg elements for dataset
+		* @desc update svg elements for a given property
 		*/
 		function updateCountryElementsBy(property, maxValue){
 			
@@ -160,18 +160,21 @@
 </head>
 <body>
 <div>
-	<h2>Visualização de fronteiras e relação de área entre países</h2>
+	<h2>Visualização de fronteiras e relação de indíces entre países</h2>
 	<button onclick="updateCountryElementsBy('area', maxArea)">Área</button>
 	<button onclick="updateCountryElementsBy('minwage', maxWage)">Salário mínimo</button>
 </div>
 <svg viewBox="0 0 1000 500"  width="1000" height="500">
+	<!-- definitions, this elements aren't rendered until referenced from other elements -->
 	<defs>
 		<circle id="basecircle"  />
 	</defs>
+	<!-- SVG document childrens -->
 	<g transform="translate(60 300)">
 		<circle  id="portugal"	class="country" transform="scale(1 1)"  r="50" onmousedown="downHandler(event)" onmouseup="upHandler(event)" onmouseout="upHandler(event)" />
 		<text transform="translate(0,70),rotate(45, 0, 0)" >Portugal</text>
 	</g>
+	<!-- transformation is applied to group -->
 	<g transform="translate(170 300)">
 		<circle  id="espanha"	class="country" transform="scale(1 1)"  r="50" onmousedown="downHandler(event)" onmouseup="upHandler(event)" onmouseout="upHandler(event)" />
 		<text transform="translate(0,70),rotate(45, 0, 0)" >Espanha</text>
@@ -193,6 +196,6 @@
 		<text transform="translate(0,70), rotate(45, 0, 0)" >Holanda</text>
 	</g>
 </svg>
-<a href="../">[VOLTAR]</a>
+<a href="../index.html">[VOLTAR]</a>
 </body>
 </html>

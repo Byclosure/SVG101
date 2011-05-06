@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html >
 <head>
-    <title>PRIMITIVAS SVG</title>
+    <title>GEOMETRIAS PRIMITIVAS SVG</title>
 	<script type="text/javascript">
 		
 		function toogle(id){
@@ -90,20 +90,30 @@
 	<button id="rect_btn" onclick="toogle('rect')">&lt;rect x=&quot;100&quot; y=&quot;100&quot; width=&quot;200&quot; height=&quot;50&quot; fill=&quot;none&quot; stroke=&quot;green&quot;/&gt;</button>
 	<button id="ellipse_btn" onclick="toogle('ellipse')">&lt;ellipse cx=&quot;400&quot; cy=&quot;150&quot; rx=&quot;150&quot; ry=&quot;50&quot; fill=&quot;red&quot;  stroke=&quot;cyan&quot; /&gt;</button>
 	<button id="line_btn" onclick="toogle('line')">&lt;line x1=&quot;10&quot; y1=&quot;10&quot; x2=&quot;500&quot; y2=&quot;400&quot; stroke-width=&quot;6&quot; stroke=&quot;purple&quot; /&gt;</button>
-	<button id="polyline_btn" onclick="toogle('polyline')">&lt;polyline fill=&quot;green&quot; stroke=&quot;blue&quot; stroke-width=&quot;4&quot; points=&quot;50,100 150,375 150,325 250,325&quot; /&gt;</button>
-	<button id="polygon_btn" onclick="toogle('polygon')">&lt;polygon fill=&quot;green&quot; stroke=&quot;blue&quot; stroke-width=&quot;4&quot; points=&quot;50,100 150,375 150,325 250,325&quot; /&gt;</button>
-	<button id="pathLines_btn" onclick="toogle('pathLines')">&lt;path fill=&quot;green&quot; stroke=&quot;blue&quot; stroke-width=&quot;4&quot; d=&quot;M50,100 150,375 150,325 250,325&quot; /&gt;</button>
+	<button id="polyline_btn" onclick="toogle('polyline')">&lt;polyline fill=&quot;none&quot; stroke=&quot;blue&quot; stroke-width=&quot;4&quot; points=&quot;50,100 150,375 150,325 250,325&quot; /&gt;</button>
+	<button id="polygon_btn" onclick="toogle('polygon')">&lt;polygon fill=&quot;none&quot; stroke=&quot;blue&quot; stroke-width=&quot;4&quot; points=&quot;50,100 150,375 150,325 250,325&quot; /&gt;</button>
+	<button id="pathLines_btn" onclick="toogle('pathLines')">&lt;path fill=&quot;none&quot; stroke=&quot;blue&quot; stroke-width=&quot;4&quot; d=&quot;M50,100 L150,375 150,325 250,325&quot; /&gt;</button>
 	<button id="pathQuad_btn" onclick="toogle('pathQuad')">&lt;path fill=&quot;green&quot; stroke=&quot;blue&quot; stroke-width=&quot;4&quot; d=&quot;M50,100 Q50,200 150,375 200,400 150,325 300,100 250,325&quot; /&gt;</button>
 </div>
+<!-- note the viewBox dimensions differ from the document dimensions -->
+<!-- viewBox refer to coordinates inside SVG "canvas" -->
 <svg viewBox="0 0 1000 600"  width="1000" height="400">
 	<circle id="circle" cx="100" cy="100" r="50" fill="orange" stroke="blue" />
+	
 	<rect id="rect" x="100" y="100" width="200" height="50" fill="none" stroke="green"/>
+	
 	<ellipse id="ellipse" cx="400" cy="150" rx="150" ry="50" fill="red"  stroke="cyan" />
+	
 	<line id="line" x1="10" y1="10" x2="500" y2="400" stroke-width="6" stroke="purple" />
-	<polyline id="polyline" fill="green" stroke="blue" stroke-width="4" points="50,100 150,375 150,325 250,325" />
-	<polygon id="polygon" fill="green" stroke="blue" stroke-width="4" points="50,100 150,375 150,325 250,325" />
-	<path id="pathLines" fill="green" stroke="blue" stroke-width="4" d="M50,100 150,375 150,325 250,325" />
+	
+	<polyline id="polyline" fill="none" stroke="blue" stroke-width="4" points="50,100 150,375 150,325 250,325" />
+	
+	<polygon id="polygon" fill="none" stroke="blue" stroke-width="4" points="50,100 150,375 150,325 250,325" />
+	
+	<path id="pathLines" fill="none" stroke="blue" stroke-width="4" d="M50,100 L150,375 150,325 250,325" />
+	
 	<path id="pathQuad" fill="green" stroke="blue" stroke-width="4" d="M50,100 Q50,200 150,375 200,400 150,325 300,100 250,325" />
+	
 </svg>
 <a href="../index.html">[VOLTAR]</a>
 </body>

@@ -4,13 +4,16 @@
     <title>SVG Text, Paths, Gradients, Reuse</title>
 	<script type="text/javascript">
 	
+	//namespace definitions
 	var SVG = 	{
 					"ns" : "http://www.w3.org/2000/svg",
 					"xlinkns" : "http://www.w3.org/1999/xlink"
 				};
 	
+	//Number of espiral cycles
 	var nCircles = 6;
 	
+	//Render with properties entered by user input
 	function updatePathAndText(){
 		var a = parseInt(document.getElementById('aParam').value, 10) || 10;
 		var b = parseInt(document.getElementById('bParam').value,10) || 10;
@@ -24,21 +27,32 @@
 			path += " " + points[i].x + "," + points[i].y;
 		}
 		
+		//update path points
 		var pathElement = document.getElementById("espiral");
 		pathElement.setAttribute("d", path);
 		
+		//update text content
 		var svgTextPath = document.getElementById("myText");
 		svgTextPath.firstChild.nodeValue = text;
 	}
 	
+	/*
+	*@desc Calculate espiral points
+	*/
 	function calculateSpiralPath(a, b){
 		var degrees = 0;
 		var points = [];
 		
 		for(var i = 0; i < nCircles*36 ; i++){
 			points[i] = {};
+			
+			//degrees to radians
 			var theta = (Math.PI*degrees)/180;
-			var r = a+b*theta;
+			
+			//arithmetic espiral expression
+			var r = a+b*theta; 
+			
+			//convert polar coordinates to cartesian plan
 			points[i].x = r*Math.cos(theta);
 			points[i].y = r*Math.sin(theta);
 			
@@ -46,11 +60,6 @@
 		}
 		
 		return points;
-	}
-	
-	function updateText(event){
-		var svgTextPath = document.getElementById("myText");
-		svgTextPath.firstChild.nodeValue = event.target.value;
 	}
 	
 	</script>
@@ -114,17 +123,23 @@
 	</div>
     <svg viewBox="0 0 1000 1000"  width="600" height="500">
 	<defs>
+		
 		<linearGradient id="textgrad" gradientTransform="rotate(90 .5 .5)">
 		  <stop offset=".3" stop-color="red"/>
 		  <stop offset="1" stop-color="orange"/>
 		</linearGradient>
+		
 		<path id="espiral" d="M 0 0 L 350 0" fill="none" stroke="black" />
+		
 	</defs>
 		<g transform="translate(350,350)">
+		
 			<text fill="url(#textgrad)">
 				<textpath id="myText" xlink:href="#espiral">HTML5</textPath>	
 			</text>
+			
 			<use id="linepath" xlink:href="#espiral" />
+			
 		</g>
 	</svg>
 	<a href="../index.html">[VOLTAR]</a>
